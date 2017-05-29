@@ -1,0 +1,14 @@
+<?xml version="1.1" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Weather Or Not</string>
+    <string name="title_section1">Daily</string>
+    <string name="title_section2">Hourly</string>
+    <string name="title_section3">Settings</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_update">Update</string>
+    <string name="action_info">Info</string>
+    <string name="Author_Info">Weather Or Not\nPowered By Gray Xu\nData from www.weather.com.cn</string>
+    
+</resources>

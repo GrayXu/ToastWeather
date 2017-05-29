@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string-array name="cities">
+		<item>武汉</item>
+		<item>泉州</item>
+		<item>德化</item>
+		<item>厦门</item>
+		<item>杭州</item>
+		<item>福州</item>
+	</string-array>
+</resources>
