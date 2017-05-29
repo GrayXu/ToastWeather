@@ -276,15 +276,11 @@ public class NavigationDrawerFragment extends Fragment {
 		}
 
 		if (item.getItemId() == R.id.action_update) {
-			Toast.makeText(getActivity(), "Updating~", Toast.LENGTH_SHORT).show();
-			WebView wView = (WebView) getActivity().findViewById(R.id.wv);
+			Toast.makeText(getActivity(), "Updating~(实际然并卵？？)", Toast.LENGTH_SHORT).show();
 			Spinner spinner = (Spinner) getActivity().findViewById(R.id.spinner1);
 			if(spinner != null){
 				prepareWeather(String.valueOf(spinner.getSelectedItem()));
 				Log.d("Updating", "Updating button is clicked");
-			}
-			if(wView != null){
-				wView.reload();
 			}
 			return true;
 		}

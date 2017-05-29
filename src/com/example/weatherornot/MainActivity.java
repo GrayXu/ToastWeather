@@ -49,7 +49,7 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 
 		// Set up the drawer.
 		mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
-		prepareWeather("武汉");// 初始化为武汉的天气
+		
 	}
 	
 	@Override
@@ -72,7 +72,6 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 		switch (number) {
 		case 1:
 			mTitle = getString(R.string.title_section1);
-			prepareWeather("武汉");
 			break;
 		case 2:
 			mTitle = getString(R.string.title_section2);
@@ -135,7 +134,7 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 			PlaceholderFragment fragment = new PlaceholderFragment();
 			Bundle args = new Bundle();
 			args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-			fragment.setArguments(args);// 传递点击的菜单列表标题给Fragment，静态方法去获得一个PlaceholderFragment的实例
+			fragment.setArguments(args);// 传递点击的菜单列表标题给Fragment
 			return fragment;
 		}
 
@@ -144,14 +143,15 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-			final View rootView;
+			View rootView;
 			int secNum = getArguments().getInt(ARG_SECTION_NUMBER);
-			
 			if (secNum == 1) {
 				rootView = inflater.inflate(R.layout.fragment_main, container, false);
 				//为Spinner添加监听器
+//				Spinner spinner = (Spinner) getActivity().findViewById(R.id.spinner1);//null
 				Spinner spinner = (Spinner) rootView.findViewById(R.id.spinner1);
 				if(spinner != null){
+//					((MainActivity) getActivity()).prepareWeather((String) spinner.getSelectedItem());
 					spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 						@Override
@@ -187,14 +187,14 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 							new Handler().postDelayed(new Runnable() {
 			                    @Override
 			                    public void run() {
-			                    	((WebView)rootView.findViewById(R.id.wv)).reload();
+			                    	((WebView)getActivity().findViewById(R.id.wv)).reload();
 			                    	swipeLayout.setRefreshing(false);
 			                    	Toast.makeText(getActivity(), "Refreash", Toast.LENGTH_SHORT).show();
 			                    }
-			                }, 100);
-							
+			                }, 500);
 						}
 					});
+					Log.i("onCreateView", "成功为下拉组件添加监听器");
 				}else {
 					Log.e("onCreateView", "没有为下拉组件成功添加listener");
 				}
