@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="6dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.04"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <Space
+            android:layout_width="14dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="主页城市:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+        <Spinner
+            android:id="@+id/spinnerCity"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:entries="@array/cities" />
+
+        <Space
+            android:layout_width="14dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/buttAddCity"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="添加"
+            android:textAllCaps="false" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#33000000" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.03" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <Space
+            android:layout_width="14dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.11" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="桌面快捷推送:"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+        <Space
+            android:layout_width="14dp"
+            android:layout_height="wrap_content" />
+
+        <Switch
+            android:id="@+id/switchToast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.02" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#33000000" />
+
+
+</LinearLayout>
