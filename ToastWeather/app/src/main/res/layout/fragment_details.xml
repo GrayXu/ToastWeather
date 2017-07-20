@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1"
+    android:background="@color/colorWhite"
     android:orientation="vertical"
-    android:background="@color/colorWhite">
+    android:weightSum="1">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -14,25 +14,32 @@
         <Space
             android:layout_width="13dp"
             android:layout_height="wrap_content"
-            android:background="@color/colorWhite"/>
+            android:background="@color/colorWhite" />
 
         <TextView
             android:id="@+id/textToday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorWhite"
             android:text="Today"
-            android:textSize="18sp"
-            android:background="@color/colorWhite"/>
+            android:textSize="18sp" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="#33000000" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="89dp"
+        android:layout_height="95dp"
         android:layout_weight="0.29" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#33000000" />
 
     <WebView
         android:id="@+id/webView"

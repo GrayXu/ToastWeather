@@ -201,7 +201,7 @@ public class WeatherRequest {
 		StringBuilder sb = new StringBuilder();
 		sb.append(hashMap.get("日期")+" "+hashMap.get("天气")+"\n");
 		sb.append("最"+hashMap.get("最高温")+"\n"+"最"+hashMap.get("最低温"));
-		sb.append("风力:"+hashMap.get("风力"));
+		sb.append("\n风力:"+hashMap.get("风力"));
 
 		return sb.toString();
 	}
