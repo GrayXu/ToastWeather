@@ -2,6 +2,7 @@ package com.example.toastweather;
 
 import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,13 +10,30 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Spinner;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
+
+import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
 
     private FragmentTransaction fragmentTransaction;
     private DetailFragment detailFragment;
     private SettingFragment settingFragment;
+    private CityIdManager cityIdManager;
 
+    /**
+     * 给Fragment获取cityID使用
+     * @return
+     */
+    public CityIdManager getCityIdManager() {
+        return cityIdManager;
+    }
+
+    /**
+     * Navigation Item Selected Listener.
+     */
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -46,6 +64,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //初始化cityIdManager
+        InputStream inputStream = getResources().openRawResource(R.raw.cityid);
+        SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
+        cityIdManager = new CityIdManager(inputStream, sharedPreferences);
+        if(sharedPreferences.getBoolean("isFirst",true)){//仅第一次运行进行数据库的初始化
+            Log.i("onCreat","it is first");
+            new AsyncTask<Void, Void, Void>() {//耗时操作（是否会有操作前后的问题？）
+                @Override
+                protected Void doInBackground(Void... params) {
+                    cityIdManager.initSharedPreferences();
+                    return null;
+                }
+            }.execute();
+
+            sharedPreferences.edit().putBoolean("isFirst",false).apply();
+        }
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -59,14 +94,21 @@ public class MainActivity extends AppCompatActivity {
         //初始化第一个碎片作为主界面
         fragmentTransaction.show(detailFragment).hide(settingFragment);
         fragmentTransaction.commit();
+
     }
 
     @Override
     protected void onStop() {
+        //执行存档操作
+        SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
         super.onStop();
         int position = ((Spinner) findViewById(R.id.spinnerCity)).getSelectedItemPosition();
-        getPreferences(MODE_PRIVATE).edit().putInt("cityPosition", position).apply();
+        editor.putInt("cityPosition", position);
+        editor.putString("AQI", ((TextView) findViewById(R.id.textAQI)).getText().toString());
+        editor.putString("temper", ((TextView) findViewById(R.id.textTemper)).getText().toString());
+        editor.putString("today", ((TextView) findViewById(R.id.textToday)).getText().toString());
+        editor.apply();
 
-        Log.v("onStop","已经保存cityPosition为"+position+"惹");
+        Log.v("onStop","已经保存数据");
     }
 }

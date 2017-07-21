@@ -19,6 +19,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +38,13 @@ public class DetailFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-
         view = inflater.inflate(R.layout.fragment_details, container, false);
+
+        //载入离线缓存
+        SharedPreferences sharedPreferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        ((TextView) view.findViewById(R.id.textTemper)).setText(sharedPreferences.getString("temper","0℃"));
+        ((TextView) view.findViewById(R.id.textAQI)).setText(sharedPreferences.getString("AQI",":0"));
+        ((TextView) view.findViewById(R.id.textToday)).setText(sharedPreferences.getString("today","载入中..."));
 
         //装填数据（默认为武汉）
         String oldCity = getActivity().getPreferences(Context.MODE_PRIVATE).getString("oldCity","武汉");
@@ -94,7 +100,8 @@ public class DetailFragment extends Fragment {
 
             @Override
             protected void onPostExecute(Void aVoid) {
-                if (weatherRequest.getRequestResult() == 1) {
+
+                if (weatherRequest.getRequestResult() == 1) {//TODO:没有网络的处理
                     Log.d("onPostExecute", "已经成功使用"+cityFinal+"初始化weatherRequest了");
                     // TODO: 利用缓存实现快速读取和离线读取
                     //天气预报的信息读取并更新weatherList
@@ -117,13 +124,17 @@ public class DetailFragment extends Fragment {
 
                         weatherList.add(new Weather(id, info));
                     }
+                    Activity activity = getActivity();
                     //装填进当前详情的TextView
-                    StringBuilder sb = new StringBuilder();
-                    sb.append(weatherRequest.getCity() + "当前的温度:" + weatherRequest.getTemperatureNow() + "℃      AQI:" + weatherRequest.getAQI() + "\n感冒提醒: " + weatherRequest.getColdTips());
-                    TextView textView = (TextView) getActivity().findViewById(R.id.textToday);
-                    textView.setText(sb.toString());
+//                    sb.append(weatherRequest.getCity() + "当前的温度:" + weatherRequest.getTemperatureNow() + "℃      AQI:" + weatherRequest.getAQI() + "\n" + weatherRequest.getColdTips());
+                    ((TextView) activity.findViewById(R.id.textToday)).setText(weatherRequest.getColdTips());
+                    ((TextView) activity.findViewById(R.id.textAQI)).setText(":"+weatherRequest.getAQI());
+                    ((TextView) activity.findViewById(R.id.textTemper)).setText(weatherRequest.getTemperatureNow() + "℃");
+
                     //刷新位置
                     weatherAdapter.notifyItemRangeChanged(0,4);
+                }else {
+                    Toast.makeText(getActivity(),"网络出现问题，请检查网络设置:)",Toast.LENGTH_SHORT).show();
                 }
                 super.onPostExecute(aVoid);
             }
@@ -138,6 +149,7 @@ public class DetailFragment extends Fragment {
      */
     void initWebView(String city){//Friendly
         //WebView的数据装填
+        String cityID = ((MainActivity) getActivity()).getCityIdManager().getID(city);
         //TODO: 去除广告的div等网页预处理
         WebView webView = (WebView) view.findViewById(R.id.webView);
         WebSettings webSettings = webView.getSettings();
@@ -149,6 +161,6 @@ public class DetailFragment extends Fragment {
         webView.setWebViewClient(new WebViewClient());
         webView.setWebChromeClient(new WebChromeClient());
 
-        webView.loadUrl("http://m.weather.com.cn/mhours/101200101.shtml");
+        webView.loadUrl("http://m.weather.com.cn/mhours/"+cityID+".shtml");
     }
 }

@@ -56,7 +56,7 @@ public class SettingFragment extends Fragment {
                 if (!newCity.equals(oldCity)) {//如果前后文字不同，重新设置detail界面并刷新
                     Log.d("onHiddenChanged城市不同", "取出newCity键值对，为" + newCity + ",oldCity为" + oldCity);
                     detailFragment.initWeatherData(newCity);
-
+                    detailFragment.initWebView(newCity);
                     //更新oldCity
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("oldCity", newCity);
