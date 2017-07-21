@@ -107,6 +107,8 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("AQI", ((TextView) findViewById(R.id.textAQI)).getText().toString());
         editor.putString("temper", ((TextView) findViewById(R.id.textTemper)).getText().toString());
         editor.putString("today", ((TextView) findViewById(R.id.textToday)).getText().toString());
+        editor.putString("newCity",((Spinner) findViewById(R.id.spinnerCity)).getSelectedItem().toString());
+
         editor.apply();
 
         Log.v("onStop","已经保存数据");
