@@ -88,7 +88,6 @@ public class DetailFragment extends Fragment {
             @Override
             protected Void doInBackground(Void... params) {
                 weatherRequest = new WeatherRequest(cityFinal);
-
                 return null;
             }
 
@@ -121,14 +120,12 @@ public class DetailFragment extends Fragment {
                         String info = weatherRequest.getSomeDayInfo(i);
 
                         weatherList.add(new Weather(id, info));
-
                         editor.putInt("day" + i + "id", id);
                         editor.putString("day" + i + "info", info);
                     }
                     editor.apply();
 
                     //装填进当前详情的TextView
-//                    sb.append(weatherRequest.getCity() + "当前的温度:" + weatherRequest.getTemperatureNow() + "℃      AQI:" + weatherRequest.getAQI() + "\n" + weatherRequest.getColdTips());
                     ((TextView) activity.findViewById(R.id.textToday)).setText(weatherRequest.getColdTips());
                     ((TextView) activity.findViewById(R.id.textAQI)).setText(":" + weatherRequest.getAQI());
                     ((TextView) activity.findViewById(R.id.textTemper)).setText(weatherRequest.getTemperatureNow() + "℃");
@@ -150,7 +147,7 @@ public class DetailFragment extends Fragment {
     /**
      * 更新webview
      *
-     * @param city 城市名 //TODO:搭SQLite配对城市和编号
+     * @param city 城市名
      */
     void updateWebView(String city) {//Friendly
         //完成掉
@@ -167,8 +164,6 @@ public class DetailFragment extends Fragment {
             webSettings.setCacheMode(WebSettings.LOAD_CACHE_ONLY);
             Log.i("updateWebView", "当前无网络，载入缓存");
         }
-
-        //TODO: 去除广告的div等网页预处理
 
         WebView webView = (WebView) view.findViewById(R.id.webView);
         webView.loadUrl("http://m.weather.com.cn/mhours/" + cityID + ".shtml");
@@ -200,18 +195,35 @@ public class DetailFragment extends Fragment {
         recyclerView.setAdapter(weatherAdapter);//适配器装载
 
         //设置WebView的管理器
-        WebView webView = (WebView) view.findViewById(R.id.webView);
+        final WebView webView = (WebView) view.findViewById(R.id.webView);
+        String cachePath = getActivity().getApplicationContext().getDir("cache", Context.MODE_PRIVATE).getPath();
         webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setDatabaseEnabled(true);
         webSettings.setDomStorageEnabled(true);
         webSettings.setAppCacheEnabled(true);
-        webSettings.setAppCachePath(getActivity().getApplicationContext().getDir("cache", Context.MODE_PRIVATE).getPath());
+        webSettings.setAppCachePath(cachePath);
+//        webSettings.setAppCachePath(getActivity().getFilesDir().getAbsolutePath() + "webViewCache");
         webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         webSettings.setAllowFileAccess(true);
-//        webSettings.setSupportMultipleWindows(false);
-//        webView.setWebViewClient(new WebViewClient());
-        webView.setWebChromeClient(new WebChromeClient());
+        final NoAdWebViewClient[] noAdWebViewClient = new NoAdWebViewClient[1];
+
+        //异步实现加载webViewClient防止Today块和预报块加载速度受这个影响
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                noAdWebViewClient[0] = new NoAdWebViewClient(getActivity(), webView);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                webView.setWebViewClient(noAdWebViewClient[0]);
+            }
+        }.execute();
+
     }
 
 }

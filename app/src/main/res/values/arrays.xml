@@ -7,5 +7,14 @@
 		<item>厦门</item>
 		<item>杭州</item>
 		<item>福州</item>
+		<item>哈尔滨</item>
+	</string-array>
+
+	<string-array name="adBlockDivIds">
+		<item>BAIDU_SSP__wrapper_u2993846_0</item>
+		<item>BAIDU_SSP__wrapper_u2993848_0</item>
+		<item>BAIDU_SSP__wrapper_u2993850_0</item>
+		<item>BAIDU_SSP__wrapper_u2993852_0</item>
+		<item>BAIDU_SSP__wrapper_u2993854_0</item>
 	</string-array>
 </resources>
