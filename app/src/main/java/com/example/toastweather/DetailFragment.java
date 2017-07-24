@@ -60,11 +60,7 @@ public class DetailFragment extends Fragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if (hidden) {
-            Log.d("生命周期", "Detail is hidden");
-        } else {
-            Log.d("生命周期", "Detail is in show");
-
+        if (!hidden) {
             //保存选择的城市
             Activity activity = getActivity();
             if (activity != null) {//防止第一次加载的时候无活动造成空指针
@@ -98,7 +94,6 @@ public class DetailFragment extends Fragment {
                     Log.d("onPostExecute", "已经成功使用" + cityFinal + "初始化weatherRequest了");
                     Activity activity = getActivity();
 
-                    // TODO: 利用缓存实现快速读取和离线读取
                     SharedPreferences.Editor editor = activity.getPreferences(Context.MODE_PRIVATE).edit();
 
                     //天气预报的信息读取并更新weatherList
@@ -203,7 +198,7 @@ public class DetailFragment extends Fragment {
         webSettings.setDomStorageEnabled(true);
         webSettings.setAppCacheEnabled(true);
         webSettings.setAppCachePath(cachePath);
-//        webSettings.setAppCachePath(getActivity().getFilesDir().getAbsolutePath() + "webViewCache");
+//        webSettings.setAppCachePath(getActivity().getFilesDir().getAbsolutePath() + "webViewCache");//TODO:WebView缓存gg
         webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         webSettings.setAllowFileAccess(true);
         final NoAdWebViewClient[] noAdWebViewClient = new NoAdWebViewClient[1];

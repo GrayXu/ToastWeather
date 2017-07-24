@@ -9,12 +9,15 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
 import java.io.InputStream;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -67,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
         //初始化cityIdManager
         InputStream inputStream = getResources().openRawResource(R.raw.cityid);
         SharedPreferences sharedPreferences = getPreferences(MODE_PRIVATE);
-        cityIdManager = new CityIdManager(inputStream, sharedPreferences);
+        cityIdManager = CityIdManager.setCityIdManager(inputStream, sharedPreferences);
+
         if(sharedPreferences.getBoolean("isFirst",true)){//仅第一次运行进行数据库的初始化
             Log.i("onCreat","it is first");
             new AsyncTask<Void, Void, Void>() {//耗时操作（是否会有操作前后的问题？）
@@ -97,6 +101,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * 存档存档
+     */
     @Override
     protected void onStop() {
         //执行存档操作
@@ -109,8 +116,14 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("today", ((TextView) findViewById(R.id.textToday)).getText().toString());
         editor.putString("newCity",((Spinner) findViewById(R.id.spinnerCity)).getSelectedItem().toString());
 
-        editor.apply();
+        Set<String> citySet = new HashSet<>();
+        ArrayAdapter<String> citiesSpinnerAdapter = ((SettingFragment) getFragmentManager().findFragmentByTag("SETTING")).getAdapter();
+        for (int i = 0; i < citiesSpinnerAdapter.getCount(); i++) {
+            citySet.add(citiesSpinnerAdapter.getItem(i));
+        }
+        editor.putStringSet("spinnerCities",citySet);
 
+        editor.apply();
         Log.v("onStop","已经保存数据");
     }
 }
