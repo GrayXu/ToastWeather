@@ -27,7 +27,19 @@
         <service
             android:name=".UpdateDataService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name=".ToastActivity"
+            android:label="快捷天气"
+            android:theme="@android:style/Theme.NoDisplay"
+            android:icon="@drawable/toast">
+            <intent-filter>
+
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

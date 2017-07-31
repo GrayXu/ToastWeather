@@ -65,8 +65,15 @@ public class MainActivity extends AppCompatActivity {
     };
 
     @Override
+    protected void onResume() {
+        Log.d("onResume","Toast on Resume");
+        super.onResume();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("onCreate","Main on Create");
         setContentView(R.layout.activity_main);
 
         //初始化cityIdManager
@@ -118,10 +125,7 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("today", ((TextView) findViewById(R.id.textToday)).getText().toString());
         editor.putString("newCity",((Spinner) findViewById(R.id.spinnerCity)).getSelectedItem().toString());
 
-<<<<<<< HEAD
         //保存spinner里面的城市列表
-=======
->>>>>>> 3228dd308bbb6ef037afca349d30e30eb9b01fc9
         Set<String> citySet = new HashSet<>();
         ArrayAdapter<String> citiesSpinnerAdapter = ((SettingFragment) getFragmentManager().findFragmentByTag("SETTING")).getAdapter();
         for (int i = 0; i < citiesSpinnerAdapter.getCount(); i++) {
@@ -129,11 +133,14 @@ public class MainActivity extends AppCompatActivity {
         }
         editor.putStringSet("spinnerCities",citySet);
 
-<<<<<<< HEAD
         editor.putBoolean("isChecked", ((Switch) findViewById(R.id.switchToast)).isChecked());
-=======
->>>>>>> 3228dd308bbb6ef037afca349d30e30eb9b01fc9
         editor.apply();
         Log.v("onStop","已经保存数据");
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.i("onDestroy","主活动挂了");
+        super.onDestroy();
     }
 }

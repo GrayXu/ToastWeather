@@ -9,7 +9,6 @@ public class UpdateDataService extends Service {
 
     private UpdateBinder mBinder = new UpdateBinder();
 
-
     @Override
     public IBinder onBind(Intent intent) {
         return mBinder;

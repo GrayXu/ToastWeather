@@ -20,10 +20,10 @@ import java.util.List;
 
 public class UpdateBinder extends Binder {
 
-    private Activity activity;
     private static boolean keepRunning = true;
     private WeatherRequest weatherRequest;
     private List<Weather> weatherList = new ArrayList<>();
+    private SharedPreferences sharedPreferences;
 
     public static void setKeepRunning(boolean flag){
         keepRunning = flag;
@@ -36,10 +36,10 @@ public class UpdateBinder extends Binder {
             public void run() {
 
                 while (keepRunning){
-                    SharedPreferences.Editor editor = activity.getPreferences(Context.MODE_PRIVATE).edit();
-                    String city = activity.getPreferences(Context.MODE_PRIVATE).getString("newCity","武汉");
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    String city = sharedPreferences.getString("newCity","武汉");
                     try {
-                        Thread.sleep(5000);//7200000=1000*60*60*2 one update for 2 hours
+                        Thread.sleep(1200000);//one update for 20 min (20*1000*60=
                         updateData(city);
                         Log.i("startUpdate","更新了"+city+"的信息");
                     } catch (InterruptedException e) {
@@ -57,8 +57,8 @@ public class UpdateBinder extends Binder {
      * 让碎片把活动的实例传进来，从而操作文件
      * @param activity
      */
-    public void setActivity(Activity activity) {
-        this.activity = activity;
+    public void setSharedPreference(Activity activity) {
+        sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE);
     }
 
     /**
@@ -80,9 +80,9 @@ public class UpdateBinder extends Binder {
             protected void onPostExecute(Void aVoid) {
 
                 if (weatherRequest.getRequestResult() == 1) {
-                    SharedPreferences.Editor editor = activity.getPreferences(Context.MODE_PRIVATE).edit();
-                    editor.putString("AQI",weatherRequest.getAQI());
-                    editor.putString("temper",weatherRequest.getTemperatureNow());
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("AQI",":"+weatherRequest.getAQI());
+                    editor.putString("temper",weatherRequest.getTemperatureNow()+"℃");
                     editor.putString("today",weatherRequest.getColdTips());
 
                     for (int i = 0; i <= 4; i++) {
@@ -119,7 +119,7 @@ public class UpdateBinder extends Binder {
                     editor.apply();
 
                 } else {
-                    Log.i("onPostExecute","后台更新失败，应该是没有网络");
+                    Log.i("onPostExecute","后台更新失败，没有网络");
                 }
                 super.onPostExecute(aVoid);
             }

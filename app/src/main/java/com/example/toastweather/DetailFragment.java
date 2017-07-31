@@ -106,15 +106,15 @@ public class DetailFragment extends Fragment {
                             id = R.drawable.cloudy;
                         } else if (weatherType.equals("晴")) {
                             id = R.drawable.sunny;
-                        } else if (weatherType.equals("小雨")){
+                        } else if (weatherType.equals("小雨")) {
                             id = R.drawable.rainy;
-                        } else if (weatherType.equals("阵雨") || weatherType.equals("大雨")){
+                        } else if (weatherType.equals("阵雨") || weatherType.indexOf("大雨") != -1) {
                             id = R.drawable.rainy_l;
-                        } else if (weatherType.indexOf("雷")!=-1 || weatherType.equals("暴雨")){
+                        } else if (weatherType.indexOf("雷") != -1 || weatherType.equals("暴雨")) {
                             id = R.drawable.thunder;
-                        } else if (weatherType.indexOf("雪")!=-1){
+                        } else if (weatherType.indexOf("雪") != -1) {
                             id = R.drawable.snowy;
-                        } else if (weatherType.indexOf("中雨")!=-1){
+                        } else if (weatherType.indexOf("中雨") != -1) {
                             id = R.drawable.rainy_m;
                         } else {
                             id = R.drawable.error;//default

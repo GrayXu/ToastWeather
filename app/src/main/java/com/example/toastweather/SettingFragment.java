@@ -5,11 +5,8 @@ import android.app.Fragment;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
-<<<<<<< HEAD
 import android.content.Intent;
 import android.content.ServiceConnection;
-=======
->>>>>>> 3228dd308bbb6ef037afca349d30e30eb9b01fc9
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -19,20 +16,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
-=======
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
->>>>>>> 3228dd308bbb6ef037afca349d30e30eb9b01fc9
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -49,14 +38,13 @@ public class SettingFragment extends Fragment {
     private Spinner spinner;
     private DetailFragment detailFragment;
     private ArrayAdapter<String> adapter;
-<<<<<<< HEAD
     private UpdateBinder updateBinder;
 
     private ServiceConnection connection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             updateBinder = (UpdateBinder) service;
-            updateBinder.setActivity(getActivity());//传入活动的实例，方便进行数据的写入
+            updateBinder.setSharedPreference(getActivity());//传入活动的实例，方便进行数据的写入
             updateBinder.startUpdate();
         }
 
@@ -66,8 +54,6 @@ public class SettingFragment extends Fragment {
             UpdateBinder.setKeepRunning(false);
         }
     };
-=======
->>>>>>> 3228dd308bbb6ef037afca349d30e30eb9b01fc9
 
     @Nullable
     @Override
@@ -83,14 +69,11 @@ public class SettingFragment extends Fragment {
 
         //获得另一个碎片的实例，从而调用其方法
         detailFragment = (DetailFragment) getFragmentManager().findFragmentByTag("DETAIL");
-<<<<<<< HEAD
 
         //init switch
         initSwitch(view);
 
 
-=======
->>>>>>> 3228dd308bbb6ef037afca349d30e30eb9b01fc9
         return view;
     }
 
@@ -136,19 +119,7 @@ public class SettingFragment extends Fragment {
         spinner.setAdapter(adapter);
         spinner.setSelection(getActivity().getPreferences(Context.MODE_PRIVATE).getInt("cityPosition", 0));
 
-<<<<<<< HEAD
 //        //TODO:神特么不支持长按,待增加删除Item功能
-=======
-        spinner.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Log.d("initSpinner","长按了"+spinner.getSelectedItem().toString());
-                return false;
-            }
-        });
-
-//        //神特么不支持长按
->>>>>>> 3228dd308bbb6ef037afca349d30e30eb9b01fc9
 //        spinner.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 //
 //            @Override
@@ -239,7 +210,6 @@ public class SettingFragment extends Fragment {
         });
     }
 
-<<<<<<< HEAD
     /**
      * Initialize switch. And bind the updating service.
      * @param view
@@ -275,9 +245,12 @@ public class SettingFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        getActivity().unbindService(connection);
+
+        try{
+            getActivity().unbindService(connection);
+        }catch (Exception e){
+        }
+
         super.onDestroy();
     }
-=======
->>>>>>> 3228dd308bbb6ef037afca349d30e30eb9b01fc9
 }
