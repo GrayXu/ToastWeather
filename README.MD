@@ -1,11 +1,13 @@
 # ToastWeather
 A simple weather forecast app on Android which can toast info to users
-## �⽫��һ������������app ##
-����
-1. �������ṩ����е�δ������������ѯ�� 
-2. ����е���Сʱ����Ԥ���� 
-3. �ṩ��һ�������ڣ�ʹ��Toast������Activity���͡�
-����
+## 这将是一个轻量级天气app ##
+　　
+1. 主界面提供多城市的未来多天天气查询。 
+2. 多城市的逐小时天气预报。 
+2. 图形天气信息。 
+3. 提供另一个快捷入口，使用Toast进行无Activity推送。 
+4. 若是要变天，采用推送通知。（后胎服务支持）
+　　
 
 ----
-	[��CSDN�ϵĿ�����־](http://blog.csdn.net/xgl1569348/article/details/72797102)
+	[挂CSDN上的开发日志](http://blog.csdn.net/xgl1569348/article/details/72797102)
