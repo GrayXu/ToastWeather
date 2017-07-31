@@ -206,4 +206,10 @@ public class WeatherRequest {
 		return sb.toString();
 	}
 
+	public String getToastInfo(int day){
+		String info = getSomeDayInfo(day);
+		info.replace('\n',' ');
+		return info;
+	}
+
 }

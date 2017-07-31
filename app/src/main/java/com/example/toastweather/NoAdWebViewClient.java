@@ -56,7 +56,7 @@ public class NoAdWebViewClient extends WebViewClient {
 //                    } catch (InterruptedException e) {
 //                        e.printStackTrace();
 //                    }
-//                    handler.sendEmptyMessage(0x001);
+//                    handler.sendEmptyMessage(1);
 //                }
 //            }
 //        }).start();

@@ -18,16 +18,41 @@ import java.io.UnsupportedEncodingException;
  */
 public class CityIdManager {
 
-    InputStream inputStream;
-    SharedPreferences sharedPreferences;
+    private InputStream inputStream;
+    private SharedPreferences sharedPreferences;
+    private static CityIdManager cityIdManager;
 
-    public CityIdManager(InputStream inputStream, SharedPreferences sharedPreferences) {
+    /**
+     * 单例模式获得城市ID管理器
+     * @param inputStream 输入流来读取raw文本
+     * @param sharedPreferences 用来制作2500组城市ID键值对
+     */
+    private CityIdManager(InputStream inputStream, SharedPreferences sharedPreferences) {
         this.inputStream = inputStream;
         this.sharedPreferences = sharedPreferences;
     }
 
     /**
-     * 把天气ID数据保存到SharedPreferences中去（Only for first time）
+     * init manager out side
+     * @param inputStream for constructor
+     * @param sharedPreferences for constructor
+     * @return
+     */
+    public static CityIdManager setCityIdManager(InputStream inputStream, SharedPreferences sharedPreferences){
+        CityIdManager.cityIdManager = new CityIdManager(inputStream,sharedPreferences);
+        return cityIdManager;
+    }
+
+    /**
+     * get manager outside
+     * @return
+     */
+    public static CityIdManager getManager() {
+        return cityIdManager;
+    }
+    
+    /**
+     * 把天气ID数据保存到SharedPreferences中去（Only for the first time）
      * @return true if it's running successfully, false if it meets exception.
      */
     public boolean initSharedPreferences(){
@@ -60,12 +85,26 @@ public class CityIdManager {
     }
 
     /**
-     * 获得城市对应的ID
-     * @param city 城市名字
-     * @return String 城市对应的数字ID
+     * Get city's ID in database.
+     * @param city city's name in string
+     * @return String the ID
      */
     public String getID(String city){
         return sharedPreferences.getString(city,"101200101");
+    }
+
+    /**
+     *  whether the city's name is valid or not
+     * @param city city's name in string
+     * @return true if it's valid which is in database, false if it's not valid
+     */
+    public boolean isValid(String city){
+        if (sharedPreferences.getString(city,"1").equals("1")){
+            return false;
+        }else {
+            return true;
+        }
+
     }
 
 }
