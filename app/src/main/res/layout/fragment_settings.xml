@@ -51,16 +51,18 @@
                     android:layout_height="match_parent"
                     android:entries="@array/cities" />
 
+                <ImageButton
+                    android:id="@+id/buttAddCity"
+                    android:layout_width="60dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="0.03"
+                    android:background="#00000000"
+                    app:srcCompat="@drawable/add" />
+
                 <Space
                     android:layout_width="14dp"
                     android:layout_height="wrap_content" />
-
-                <Button
-                    android:id="@+id/buttAddCity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="添加"
-                    android:textAllCaps="false" />
 
             </LinearLayout>
 
@@ -131,6 +133,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"

@@ -1,4 +1,4 @@
-package com.example.toastweather;
+package com.example.toastweather.UI;
 
 import android.app.Activity;
 import android.content.SharedPreferences;

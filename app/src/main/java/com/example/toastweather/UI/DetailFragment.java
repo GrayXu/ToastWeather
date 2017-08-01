@@ -1,8 +1,11 @@
-package com.example.toastweather;
+package com.example.toastweather.UI;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -21,6 +24,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.toastweather.Support.NoAdWebViewClient;
+import com.example.toastweather.R;
+import com.example.toastweather.Support.Weather;
+import com.example.toastweather.Support.WeatherAdapter;
+import com.example.toastweather.Support.WeatherRequest;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +44,7 @@ public class DetailFragment extends Fragment {
     private View view = null;
     private WeatherAdapter weatherAdapter;
     private WebSettings webSettings;
+    private NetworkChangeReceiver networkChangeReceiver;
 
     @Nullable
     @Override
@@ -51,6 +61,9 @@ public class DetailFragment extends Fragment {
         updateWebView(City);
 
         updateWeatherData(City);
+
+        //初始化广播接收器
+        initBroadReceiver();
 
         return view;
     }
@@ -230,4 +243,53 @@ public class DetailFragment extends Fragment {
 
     }
 
+    /**
+     * 初始化广播接收器，从而进行活动运行期间恢复网络后的刷新
+     */
+    private void initBroadReceiver() {
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+        networkChangeReceiver = new NetworkChangeReceiver(this,getActivity());
+        getActivity().registerReceiver(networkChangeReceiver, intentFilter);
+    }
+
+    class NetworkChangeReceiver extends BroadcastReceiver {
+
+        private DetailFragment detailFragment;
+        private boolean isFirst = true;
+        private Activity activity;
+
+        public NetworkChangeReceiver(DetailFragment detailFragment, Activity activity) {
+            this.detailFragment = detailFragment;
+            this.activity = activity;
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (!isFirst) {
+                ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+                if (networkInfo != null && networkInfo.isAvailable()) {
+                    Toast.makeText(getActivity(), "有网了", Toast.LENGTH_SHORT).show();
+                    String city = activity.getPreferences(Context.MODE_PRIVATE).getString("newCity", "武汉");
+                    detailFragment.updateWeatherData(city);
+                    detailFragment.updateWebView(city);
+                } else {
+                    Toast.makeText(getActivity(), "没网了", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                isFirst = false;
+            }
+
+        }
+    }
+
+    /**
+     * Unregister broadcast receiver.
+     */
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().unregisterReceiver(networkChangeReceiver);
+    }
 }

@@ -1,4 +1,4 @@
-package com.example.toastweather;
+package com.example.toastweather.Service;
 
 /**
  * Created by Xgl on 2017/7/31.
@@ -10,6 +10,10 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Binder;
 import android.util.Log;
+
+import com.example.toastweather.R;
+import com.example.toastweather.Support.Weather;
+import com.example.toastweather.Support.WeatherRequest;
 
 import java.util.ArrayList;
 import java.util.List;

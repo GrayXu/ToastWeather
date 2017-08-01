@@ -1,4 +1,4 @@
-package com.example.toastweather;
+package com.example.toastweather.Support;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -8,6 +8,8 @@ import android.os.Message;
 import android.util.Log;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.example.toastweather.R;
 
 /**
  * Created by Xgl on 2017/7/22.
@@ -88,7 +90,7 @@ public class NoAdWebViewClient extends WebViewClient {
                 //注入的JS的代码
                 js.append("var adDiv"+i+"= document.getElementById('"+adDivs[i]+"');if(adDiv"+i+" != null)adDiv"+i+".parentNode.removeChild(adDiv"+i+");");
             }
-            //通过Tag名称来获取无id的组件
+            //通过Tag名称来获取并屏蔽无id的组件
             i++;
             js.append("var adDiv"+i+"= document.getElementsByTagName('h1')[0];if(adDiv"+i+" != null)adDiv"+i+".parentNode.removeChild(adDiv"+i+");");
             i++;

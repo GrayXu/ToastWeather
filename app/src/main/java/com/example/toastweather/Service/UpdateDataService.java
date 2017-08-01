@@ -1,4 +1,4 @@
-package com.example.toastweather;
+package com.example.toastweather.Service;
 
 import android.app.Service;
 import android.content.Intent;

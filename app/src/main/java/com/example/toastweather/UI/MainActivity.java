@@ -1,10 +1,9 @@
-package com.example.toastweather;
+package com.example.toastweather.UI;
 
 import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +14,8 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.example.toastweather.Support.CityIdManager;
+import com.example.toastweather.R;
 
 import java.io.InputStream;
 import java.util.HashSet;

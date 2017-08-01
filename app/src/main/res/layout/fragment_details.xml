@@ -77,7 +77,6 @@
                     android:id="@+id/textToday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/colorWhite"
                     android:text="\n         \n\n"
                     android:textSize="18sp" />
             </LinearLayout>

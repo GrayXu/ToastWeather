@@ -1,4 +1,4 @@
-package com.example.toastweather;
+package com.example.toastweather.UI;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -17,12 +17,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import com.example.toastweather.Support.CityIdManager;
+import com.example.toastweather.R;
+import com.example.toastweather.Service.UpdateBinder;
+import com.example.toastweather.Service.UpdateDataService;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -53,6 +59,8 @@ public class SettingFragment extends Fragment {
             Log.i("onServiceDisconnected","ServiceDisconnected");
             UpdateBinder.setKeepRunning(false);
         }
+
+
     };
 
     @Nullable
@@ -73,6 +81,24 @@ public class SettingFragment extends Fragment {
         //init switch
         initSwitch(view);
 
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("ToastWeather");
+        builder.setMessage("开源在:\ngithub.com/GrayXu/ToastWeather \n\n图标:www.iconfont.cn\n\n天气数据:www.weather.com.cn\n\nEmail:chh1569348@gmail.com\n希望能收到反馈 or issue"+new String(Character.toChars(0x1F64F)));
+        builder.setCancelable(false);
+
+        builder.setPositiveButton("Got it", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        ((LinearLayout) view.findViewById(R.id.layout)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                builder.show();
+            }
+        });
 
         return view;
     }
@@ -119,34 +145,33 @@ public class SettingFragment extends Fragment {
         spinner.setAdapter(adapter);
         spinner.setSelection(getActivity().getPreferences(Context.MODE_PRIVATE).getInt("cityPosition", 0));
 
-//        //TODO:神特么不支持长按,待增加删除Item功能
-//        spinner.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-//                Log.i("initSpinner","监听到长按事件");
-//                final int num = position;
-//                AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-//                dialog.setTitle("确定删除这个城市吗？");
-//                dialog.setPositiveButton("删除", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        spinner.setSelection(0);
-//                        adapter.remove(adapter.getItem(num));
-//                        Toast.makeText(getActivity(),"已删除",Toast.LENGTH_SHORT).show();
-//                        Log.i("initSpinner","已删除城市");
-//                    }
-//                });
-//                dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//                    }
-//                });
-//                dialog.show();
-//                return true;
-//            }
-//        });
+        //长按删除Item功能
+        spinner.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Log.i("initSpinner","监听到长按事件");
+                final String citySelected = spinner.getSelectedItem().toString();
+                AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+                dialog.setMessage("确定删除"+citySelected+"吗？");
+                dialog.setPositiveButton("删除", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        spinner.setSelection(0);
+                        adapter.remove(citySelected);
+                        Toast.makeText(getActivity(),"已删除",Toast.LENGTH_SHORT).show();
+                        Log.i("initSpinner","已删除城市");
+                    }
+                });
+                dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                dialog.show();
+                return true;
+            }
+        });
     }
 
     /**
@@ -162,7 +187,7 @@ public class SettingFragment extends Fragment {
      * @param view
      */
     private void initButtonFunc(final View view) {
-        Button button = (Button) view.findViewById(R.id.buttAddCity);
+        ImageButton button = (ImageButton) view.findViewById(R.id.buttAddCity);
 
 
         button.setOnClickListener(new View.OnClickListener() {

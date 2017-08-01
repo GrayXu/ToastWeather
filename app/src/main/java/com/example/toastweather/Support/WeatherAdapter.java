@@ -1,4 +1,4 @@
-package com.example.toastweather;
+package com.example.toastweather.Support;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.toastweather.R;
 
 import java.util.List;
 

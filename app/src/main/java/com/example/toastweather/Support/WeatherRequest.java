@@ -1,4 +1,4 @@
-package com.example.toastweather;
+package com.example.toastweather.Support;
 
 import android.util.Log;
 
