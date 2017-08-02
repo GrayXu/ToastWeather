@@ -1,24 +1,23 @@
-![ÕâÀïÐ´Í¼Æ¬ÃèÊö](http://img.blog.csdn.net/20170802011310672?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvWEdMMTU2OTM0OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)![ÕâÀïÐ´Í¼Æ¬ÃèÊö](http://img.blog.csdn.net/20170802011414894?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvWEdMMTU2OTM0OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
-## ÕâÊÇÒ»¸öÇáÁ¿¼¶ÌìÆø°²×¿APP ##
-¡¡¡¡
-Ä¿±ê¹¦ÄÜ£º
+![è¿™é‡Œå†™å›¾ç‰‡æè¿°](http://img.blog.csdn.net/20170802011310672?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvWEdMMTU2OTM0OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)![è¿™é‡Œå†™å›¾ç‰‡æè¿°](http://img.blog.csdn.net/20170802011414894?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvWEdMMTU2OTM0OA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+## è¿™æ˜¯ä¸€ä¸ªè½»é‡çº§å¤©æ°”å®‰å“APP ##
+ã€€ã€€
+ç›®æ ‡åŠŸèƒ½ï¼š
 
- - [x] Ö÷½çÃæÌá¹©¶à³ÇÊÐµÄÎ´À´¶àÌìÌìÆø²éÑ¯¡£ 
- - [x] ¶à³ÇÊÐµÄÖðÐ¡Ê±ÌìÆøÔ¤±¨¡£
-    - °ë³ÉÆ·¡£ÓÃÁËWebViewÀ´ÊµÏÖ£¬µ«ËÙ¶ÈÌ«×½¼±£¬»º´æ»úÖÆÒ²²î¾¢¡£
- - [x] Ìá¹©ÁíÒ»¸ö¿ì½ÝÈë¿Ú£¬Ê¹ÓÃToast½øÐÐÍÆËÍ¡£
- - [ ] Èô±äÌì£¬ÍÆËÍÍ¨Öª¡£
- - [ ] Material DesignÉè¼Æ
+ - [x] ä¸»ç•Œé¢æä¾›å¤šåŸŽå¸‚çš„æœªæ¥å¤šå¤©å¤©æ°”æŸ¥è¯¢ã€‚ 
+ - [x] å¤šåŸŽå¸‚çš„é€å°æ—¶å¤©æ°”é¢„æŠ¥ã€‚
+    - åŠæˆå“ã€‚ç”¨äº†WebViewæ¥å®žçŽ°ï¼Œä½†é€Ÿåº¦å¤ªæ‰æ€¥ï¼Œç¼“å­˜æœºåˆ¶ä¹Ÿå·®åŠ²ã€‚
+ - [x] æä¾›å¦ä¸€ä¸ªå¿«æ·å…¥å£ï¼Œä½¿ç”¨Toastè¿›è¡ŒæŽ¨é€ã€‚
+ - [ ] è‹¥å˜å¤©ï¼ŒæŽ¨é€é€šçŸ¥ã€‚
+ - [ ] Material Designè®¾è®¡
 
 
 ----------
 
 ## TODO LIST ##
 
- - JavaÅÀ³æ»ñµÃÖðÐ¡Ê±Êý¾ÝµÄAPI£¬´Ó¶ø¸ÄÉÆÊý¾ÝÖÊÁ¿£¬Ò²¿ÉÒÔ°ÚÍÑWebView¡£
- - ÌáÉýWebViewµÄÌåÑé£¨ÉÏÒ»ÌõÈôÍê³É£¬±¾Ìõ×÷·Ï£©£¬°üÀ¨²»½öÏÞÓÚ»º´æ¡¢ÌáÉý¼ÓÔØËÙ¶È¡¢ÌáÉýJS×¢ÈëÐ§ÂÊ¡£
- - UIÖØÐÂÉè¼Æ£¨Õæ¡¤Ö±ÄÐÉóÃÀ£©
+ - Javaçˆ¬è™«èŽ·å¾—é€å°æ—¶æ•°æ®çš„APIï¼Œä»Žè€Œæ”¹å–„æ•°æ®è´¨é‡ï¼Œä¹Ÿå¯ä»¥æ‘†è„±WebViewã€‚
+ - æå‡WebViewçš„ä½“éªŒï¼ˆä¸Šä¸€æ¡è‹¥å®Œæˆï¼Œæœ¬æ¡ä½œåºŸï¼‰ï¼ŒåŒ…æ‹¬ä¸ä»…é™äºŽç¼“å­˜ã€æå‡åŠ è½½é€Ÿåº¦ã€æå‡JSæ³¨å…¥æ•ˆçŽ‡ã€‚
+ - UIé‡æ–°è®¾è®¡ï¼ˆçœŸÂ·ç›´ç”·å®¡ç¾Žï¼‰
 
 ----
-ÕâÊÇÒ»¸öÎªÁËÁ·ÊÖ¶øÉúµÄÏîÄ¿¡£
-CSDNÉÏµÄ¿ª·¢ÈÕÖ¾   (http://blog.csdn.net/xgl1569348/article/details/72797102)
+è¿™æ˜¯ä¸€ä¸ªä¸ºäº†ç»ƒæ‰‹è€Œç”Ÿçš„é¡¹ç›®ï¼Œæš‚æ—¶å‡é‡‡ç”¨åŽŸç”ŸæŽ§ä»¶ä¸Žæ¡†æž¶ã€‚
