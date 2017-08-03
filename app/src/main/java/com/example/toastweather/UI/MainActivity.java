@@ -123,7 +123,12 @@ public class MainActivity extends AppCompatActivity {
         editor.putString("AQI", ((TextView) findViewById(R.id.textAQI)).getText().toString());
         editor.putString("temper", ((TextView) findViewById(R.id.textTemper)).getText().toString());
         editor.putString("today", ((TextView) findViewById(R.id.textToday)).getText().toString());
-        editor.putString("newCity",((Spinner) findViewById(R.id.spinnerCity)).getSelectedItem().toString());
+
+        if (((Spinner) findViewById(R.id.spinnerCity)).getSelectedItem()!=null){
+            editor.putString("newCity",((Spinner) findViewById(R.id.spinnerCity)).getSelectedItem().toString());
+        }else {
+            editor.putString("newCity","武汉");//default
+        }
 
         //保存spinner里面的城市列表
         Set<String> citySet = new HashSet<>();

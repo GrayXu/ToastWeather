@@ -12,6 +12,7 @@ import android.os.Binder;
 import android.util.Log;
 
 import com.example.toastweather.R;
+import com.example.toastweather.Support.HourlyWeather;
 import com.example.toastweather.Support.Weather;
 import com.example.toastweather.Support.WeatherRequest;
 
@@ -28,11 +29,15 @@ public class UpdateBinder extends Binder {
     private WeatherRequest weatherRequest;
     private List<Weather> weatherList = new ArrayList<>();
     private SharedPreferences sharedPreferences;
+    private HourlyWeather hourlyWeather;
 
     public static void setKeepRunning(boolean flag){
         keepRunning = flag;
     }
 
+    /**
+     * 开始更新，利用进程休眠实现隔时间更新
+     */
     public void startUpdate() {
 
         new Thread(new Runnable() {
@@ -43,9 +48,10 @@ public class UpdateBinder extends Binder {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     String city = sharedPreferences.getString("newCity","武汉");
                     try {
-                        Thread.sleep(1200000);//one update for 20 min (20*1000*60=
                         updateData(city);
                         Log.i("startUpdate","更新了"+city+"的信息");
+                        Thread.sleep(1200000);//one update for 20 min (20*1000*60=
+
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                         Log.e("startUpdate", "出现打断错误");
@@ -111,6 +117,7 @@ public class UpdateBinder extends Binder {
                         } else {
                             id = R.drawable.error;//default
                         }
+
                         //获取天气简介
                         String info = weatherRequest.getSomeDayInfo(i);
 
@@ -128,6 +135,31 @@ public class UpdateBinder extends Binder {
                 super.onPostExecute(aVoid);
             }
         }.execute();
+
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                hourlyWeather = new HourlyWeather(cityFinal);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                if (hourlyWeather.getResult()){
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putStringSet("timeSet",hourlyWeather.getTimeSet());
+                    editor.putStringSet("temperatureSet",hourlyWeather.getTimeSet());
+                    editor.putStringSet("weatherSet",hourlyWeather.getTimeSet());
+                    editor.apply();
+                }else {
+                    Log.i("onPostExecute","后台更新失败，没有网络");
+                }
+
+                super.onPostExecute(aVoid);
+            }
+        }.execute();
+
     }
 
 }

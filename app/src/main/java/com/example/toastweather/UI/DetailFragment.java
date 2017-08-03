@@ -32,6 +32,7 @@ import com.example.toastweather.Support.WeatherRequest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by Xgl on 2017/7/19.
@@ -68,6 +69,10 @@ public class DetailFragment extends Fragment {
         return view;
     }
 
+    /**
+     * 当碎片切换的时候被回调
+     * @param hidden 是否被隐藏
+     */
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
@@ -76,11 +81,16 @@ public class DetailFragment extends Fragment {
             Activity activity = getActivity();
             if (activity != null) {//防止第一次加载的时候无活动造成空指针
                 Spinner spinner = (Spinner) getActivity().findViewById(R.id.spinnerCity);
-                String newCity = spinner.getSelectedItem().toString();
-                SharedPreferences.Editor editor = getActivity().getPreferences(Context.MODE_PRIVATE).edit();
-                editor.putString("newCity", newCity);
-                editor.apply();
-                Log.i("onHiddenChanged", "spinner中选择的城市是" + newCity + ",并保存在newCity键值对里了");
+                Object object = spinner.getSelectedItem();
+
+                if (object != null){
+                    String newCity = object.toString();
+                    SharedPreferences.Editor editor = getActivity().getPreferences(Context.MODE_PRIVATE).edit();
+                    editor.putString("newCity", newCity);
+                    editor.apply();
+                    Log.i("onHiddenChanged", "spinner中选择的城市是" + newCity + ",并保存在newCity键值对里了");
+                }
+
             }
         }
     }

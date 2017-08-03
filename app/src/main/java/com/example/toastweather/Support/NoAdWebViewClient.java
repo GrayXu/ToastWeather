@@ -83,7 +83,7 @@ public class NoAdWebViewClient extends WebViewClient {
 //            String js = "javascript:";
             Resources res = context.getResources();
 
-            //屏蔽掉可获得id的div
+            //蔽掉可获得id的div
             String[] adDivs = res.getStringArray(R.array.adBlockDivIds);
             int i;
             for(i=0;i<adDivs.length;i++){
